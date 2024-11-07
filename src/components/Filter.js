@@ -33,10 +33,15 @@
 
 import React from "react";
 
-function Filter({ search, onSearchChange, onCategoryChange }) {
+function Filter({ search, onSearchChange, selectedCategory, onCategoryChange }) {
   // Handle change for the search input
   const handleSearchInputChange = (event) => {
     onSearchChange(event.target.value); // Pass the new search term to the parent
+  };
+
+  // Handle change for the category dropdown
+  const handleCategoryChange = (event) => {
+    onCategoryChange(event.target.value); // Pass the selected category to the parent
   };
 
   return (
@@ -53,7 +58,11 @@ function Filter({ search, onSearchChange, onCategoryChange }) {
 
       {/* Category dropdown */}
       <label htmlFor="category">Category: </label>
-      <select id="category" onChange={onCategoryChange}>
+      <select 
+        id="category" 
+        value={selectedCategory} // Controlled value for the category
+        onChange={handleCategoryChange} // Controlled handler for category selection
+      >
         <option value="All">All</option>
         <option value="Produce">Produce</option>
         <option value="Dairy">Dairy</option>

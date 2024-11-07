@@ -5,9 +5,11 @@ import { v4 as uuid } from "uuid"; // Import uuid to generate unique IDs
 function ItemForm(props) {
   const [itemName, setItemName] = useState("");
   const [itemCategory, setItemCategory] = useState("Produce");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
 
   const handleItemNameChange = (event) => {
     setItemName(event.target.value);
+    setErrorMessage(""); // Reset error message when user starts typing
   };
 
   const handleCategoryChange = (event) => {
@@ -18,7 +20,7 @@ function ItemForm(props) {
     event.preventDefault();
 
     if (!itemName.trim()) {
-      alert("Item name cannot be empty");
+      setErrorMessage("Item name cannot be empty");
       return;
     }
 
@@ -46,7 +48,10 @@ function ItemForm(props) {
         value={itemName}
         onChange={handleItemNameChange}
         placeholder="Enter item name"
+        aria-invalid={errorMessage ? "true" : "false"} // Mark input as invalid if error exists
+        aria-describedby="name-error" // Associate error message with input field
       />
+      {errorMessage && <p id="name-error" style={{ color: 'red' }}>{errorMessage}</p>} {/* Display error message */}
 
       <label htmlFor="itemCategory">Category:</label>
       <select

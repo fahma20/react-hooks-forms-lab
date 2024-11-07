@@ -1,5 +1,3 @@
-
- 
 import React, { useState } from "react";
 import ItemForm from "./ItemForm";
 import Filter from "./Filter";
